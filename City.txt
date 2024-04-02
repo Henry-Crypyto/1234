@@ -1,31 +1,15 @@
-$('#site_id').change(function() {
-        // 清空 #road 下拉列表并添加默认选项
-        $('#road').empty().append('<option value="">请选择路(街)</option>');
+case 'site_id': // 处理'站点ID'请求
+        $sql = "SELECT * FROM site WHERE city_id = '$val'";
+        $result = mysqli_query($link, $sql);
+        while ($row = mysqli_fetch_assoc($result)) {
+            $list[] = $row; // 将结果添加到数组中
+        }
+        break;
 
-        // 执行 AJAX 请求
-        $.ajax({
-            type: "GET",
-            url: 'action.php', // 后端处理脚本
-            data: { act: 'road', val: $('#site_id').val() }, // 请求参数
-            dataType: "json",
-            success: function(result) {
-                // 遍历返回的结果并添加到 #road 下拉列表
-                for (var i = 0; i < result.length; i++) {
-                    $('#road').append('<option value="' + result[i]['site_id'] + '">' + result[i]['road'] + '</option>');
-                }
-            },
-            error: function(xhr, status, msg) {
-                // 请求失败时的处理
-                console.error(xhr);
-                console.error(msg);
-            }
-        });
-    });
-
-    // 如果 #site_id 有选中的项，则更新 #input 输入框的值
-    if($('#site_id').find(":selected").text() == '请选择') {
-        var site = '';
-    } else {
-        var site = $('#site_id').find(":selected").text();
-    }
-    $('#input').val($('#city').find(":selected").text() + site);
+    case 'road': // 处理'道路'请求
+        $sql = "SELECT * FROM road WHERE site_id = '$val'";
+        $result = mysqli_query($link, $sql);
+        while ($row = mysqli_fetch_assoc($result)) {
+            $list[] = $row; // 将结果添加到数组中
+        }
+        break;
