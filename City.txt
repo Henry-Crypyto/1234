@@ -1,9 +1,75 @@
- $('#road').change(function() {
-        var road = '';
-        if ($('#road').find(":selected").text() === '請選擇') {
-            road = '';
-        } else {
-            road = $('#road').find(":selected").text();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Select Example</title>
+    <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+</head>
+<body>
+
+<label for="city">City:</label>
+<select id="city">
+    <option value="">Please select a city</option>
+    <!-- City options will be loaded here -->
+</select>
+
+<br>
+
+<label for="site_id">Site:</label>
+<select id="site_id">
+    <option value="">Please select a site</option>
+    <!-- Site options will be loaded based on city selection -->
+</select>
+
+<br>
+
+<label for="road">Road:</label>
+<select id="road">
+    <option value="">Please select a road</option>
+    <!-- Road options will be loaded based on site selection -->
+</select>
+
+<br>
+
+<label for="input">Combined Selection:</label>
+<input id="input" value="" size="35">
+
+<script>
+$(document).ready(function() {
+    // Load city options from the server
+    $.ajax({
+        type: "GET",
+        url: "path_to_your_endpoint_for_city", // change to your endpoint URL
+        dataType: "json",
+        success: function(response) {
+            // Handle the response - populate the city dropdown
+        },
+        error: function(xhr, status, error) {
+            console.error("Error occurred while loading cities:", error);
         }
-        $("#input").val($('#city').find(":selected").text() + $('#site_id').find(":selected").text() + road);
     });
+
+    // Handle when the city dropdown changes
+    $("#city").change(function() {
+        var cityId = $(this).val();
+        // Load site options based on selected city
+    });
+
+    // Handle when the site dropdown changes
+    $("#site_id").change(function() {
+        var siteId = $(this).val();
+        // Load road options based on selected site
+    });
+
+    // Update the input value when the road dropdown changes
+    $("#road").change(function() {
+        var combinedSelection = $("#city option:selected").text() + " " +
+                                $("#site_id option:selected").text() + " " +
+                                $("#road option:selected").text();
+        $("#input").val(combinedSelection.trim());
+    });
+});
+</script>
+
+</body>
+</html>
