@@ -1,22 +1,12 @@
-<?php
-// 设置响应的内容类型为 JSON 和字符编码为 UTF-8
-header('Content-Type: application/json;charset=utf-8');
+$list = array(); // 存储查询结果的数组
+switch ($action) {
+    case 'city': // 查询城市数据
+        $sql = "SELECT * FROM city WHERE 1"; // 从 city 表中选择所有记录
+        $result = mysqli_query($link, $sql) or die("查询失败");
 
-// 数据库配置
-$host = "localhost";
-$user = "root";
-$password = "";
-$database = "city";
-
-// 连接数据库
-$link = mysqli_connect($host, $user, $password) or die("数据库连接失败");
-
-// 选择数据库
-mysqli_select_db($link, $database) or die("数据库选择失败");
-
-// 设置字符集为 utf8
-mysqli_query($link, "SET NAMES utf8");
-
-// 你的其他代码，例如查询数据库并输出 JSON 数据
-
-?>
+        while ($row = mysqli_fetch_assoc($result)) { // 遍历结果集并存入$list数组
+            $list[] = $row; // 将每一行记录存入数组
+        }
+        break;
+    // 可能还有其他的 case 语句来处理不同的 $action
+}
