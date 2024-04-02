@@ -1,34 +1,27 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
-<title>查询表单</title>
-</head>
-<body>
-    <label for="city">城市</label>
-    <select id="city">
-        <option value="">請選擇城市</option>
-        <!-- 城市選項 -->
-    </select>
-    <br>
-
-    <label for="site_id">縣市(市)區</label>
-    <select id="site_id">
-        <option value="">請選擇縣市(市)區</option>
-        <!-- 縣市(市)區選項 -->
-    </select>
-    <br>
-
-    <label for="road">路(街)及號巷名稱</label>
-    <select id="road">
-        <option value="">請選擇路(街)及號巷名稱</option>
-        <!-- 路(街)及號巷名稱選項 -->
-    </select>
-    <br>
-
-    <label for="input">地址</label>
-    <input id="input" type="text" size="35">
-    <!-- 这里可能有更多的 HTML 代码或者 <script> 标签内的 JavaScript 代码 -->
-</body>
-</html>
+<script>
+$(function() {
+  // 页面加载完毕后立即执行的函数
+  $.ajax({
+    type: "GET", // 请求类型为 GET
+    url: "action.php", // 请求的 URL
+    data: { act: 'city' }, // 发送到服务器的数据
+    dataType: "json", // 预期服务器返回的数据类型
+    success: function(result) {
+      // 请求成功时执行的回调函数
+      // 清空城市下拉列表
+      $("#city").empty();
+      // 在城市下拉列表中添加一个提示选项
+      $("#city").append('<option value="">请选择城市</option>');
+      // 遍历返回的结果数组，为每个城市创建一个选项
+      for (var i = 0; i < result.length; i++) {
+        // 使用 result[i]['city_id'] 和 result[i]['city'] 来访问城市 ID 和城市名称
+        $("#city").append('<option value="' + result[i]['city_id'] + '">' + result[i]['city'] + '</option>');
+      }
+    },
+    error: function(xhr, status, msg) {
+      // 请求失败时执行的回调函数
+      console.error('AJAX request failed: ' + msg);
+    }
+  });
+});
+</script>
