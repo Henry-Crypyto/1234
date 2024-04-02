@@ -1,15 +1,9 @@
-case 'site_id': // 处理'站点ID'请求
-        $sql = "SELECT * FROM site WHERE city_id = '$val'";
-        $result = mysqli_query($link, $sql);
-        while ($row = mysqli_fetch_assoc($result)) {
-            $list[] = $row; // 将结果添加到数组中
+ $('#road').change(function() {
+        var road = '';
+        if ($('#road').find(":selected").text() === '請選擇') {
+            road = '';
+        } else {
+            road = $('#road').find(":selected").text();
         }
-        break;
-
-    case 'road': // 处理'道路'请求
-        $sql = "SELECT * FROM road WHERE site_id = '$val'";
-        $result = mysqli_query($link, $sql);
-        while ($row = mysqli_fetch_assoc($result)) {
-            $list[] = $row; // 将结果添加到数组中
-        }
-        break;
+        $("#input").val($('#city').find(":selected").text() + $('#site_id').find(":selected").text() + road);
+    });
