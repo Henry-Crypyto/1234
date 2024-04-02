@@ -1,0 +1,29 @@
+<! DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><！-- 設定網頁編碼-->
+«script src="//code.jquery.com/jquery-1.11.0.min.js"></script> <! -- 5|AjQuerylatA --›
+<title>查詢區域</title>
+</head>
+‹body >
+縣市
+<select id="city"><！-- 縣市下拉式選單-->
+<option value="">請選擇</option><！-- 預設選項-->
+</ select>
+‹br>
+鄉鎮［市］區
+<select id="site_id"><！-- 地區下拉式選單—->
+<option value="">請選擇</option><！--預設選項-->
+</ select>
+‹br>
+路（街）名或鄉里名稱
+<select id="road"><！-- 道路下拉式選單-->
+<option value="">請選擇</option><！-- 預設選項-->
+</ select>
+‹br>
+地址：
+«input id='input' value="" size="35"›
+</body >
+<script>•••
+</script>
+</html>
